@@ -1,0 +1,5 @@
+Notes Project
+
+- Backend Server: Spring MVC
+- Frontend: AngularJS + Angular Material
+- Persistance: MySQL (Data Structure and Dummy Data: notes_db_and_dummy_data.sql)

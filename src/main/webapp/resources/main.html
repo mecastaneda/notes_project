@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Notes Application 3.0</title>
+	
+	<link rel="stylesheet" href="resources/css/angular-material.css">
+	<link rel="stylesheet" href="resources/css/login.css">
+	<link rel="stylesheet" href="resources/css/notes.css">
+	
+	<script src="resources/lib/angular.js"></script>
+    <script src="resources/lib/angular-animate.js"></script>
+    <script src="resources/lib/angular-aria.js"></script>
+	<script src="resources/lib/angular-messages.js"></script>
+    <script src="resources/lib/angular-material.js"></script>
+    <script src="resources/lib/angular-route.js"></script>
+    <script src="resources/lib/angular-resource.js"></script>
+    <script src="resources/lib/angular-cookies.js"></script>
+    
+    <script src="resources/login/login.js"></script>
+	<script src="resources/notes/notes.js"></script>
+	<script src="resources/services/auth.service.js"></script>
+	<script src="resources/services/restFul.service.js"></script>
+    
+    <script src="resources/notes/noteList.directive/note_list.js"></script>
+    <script src="resources/notes/noteCurrent.directive/note_current.js"></script>
+	
+	<script type="text/javascript">
+		angular.module("notesApp", ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'loginModule', 'notesModule', 'ngCookies'])
+		.constant("baseUrl", "http://localhost:8080/notes-project/")
+		.config(function($routeProvider, $locationProvider, $httpProvider) {
+			$locationProvider.html5Mode({
+					enabled: false,
+					requireBase: false
+				});
+			
+			
+			$routeProvider.when("/notes", {
+				templateUrl: "notes"
+			});
+			
+			$routeProvider.otherwise({
+				templateUrl: "login"
+			});
+			
+			$httpProvider.interceptors.push('authInterceptor');
+			
+		})
+		.factory('authInterceptor', function($q, $cookies, $location) {
+			return {
+				request: function(config) {
+					config.headers = config.headers || {};
+					if($cookies.get('token')) {
+						config.headers.Authorization = $cookies.get('token');
+					}
+					return config;
+				},
+				
+				// Intercept 401s and redirect you to login
+				responseError: function(response) {
+					if(response.status === 401) {
+						console.log('changing path to login');
+						$location.path('login').replace();
+						// remove any stale tokens
+						$cookies.remove('token');
+						return $q.reject(response);
+					}
+					else {
+						return $q.reject(response);
+					}
+				}
+			}
+		})
+		.run(function($rootScope, auth, $cookies, $location) {
+			var token = $cookies.get("token");
+			if(token) {
+				auth.checkToken(token).then(function(data) {
+					console.log('cool', data);
+					$rootScope.user = data;
+					$location.path("notes").replace();
+				}, function(data) {
+					console.log('not cool');
+					$location.path("login").replace();
+				});
+			}
+			
+		})
+		
+		.controller("mainCtrl", function($scope) {
+			//
+		});
+	</script>
+	
+</head>
+<body ng-controller="mainCtrl">
+	<div ng-view></div>
+</body>
+</html>

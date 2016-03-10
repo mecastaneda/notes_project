@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+.inputdemoErrors .inputErrorsApp {
+ 	min-height: 48px; 
+ }
+.inputdemoErrors md-input-container > p {
+	font-size: 0.8em;
+	text-align: left;
+	width: 100%;
+	
+ }
+ 
+ .loginMain {
+ 	margin: 0 auto;
+ 	width: 800px;
+ 	top: 50%;
+ 	position: relative;
+ 	transform: translateY(50%);
+ }
+ 
+ form > a {
+ 	margin-left: 20px;
+ }
+ 
+ a {
+    color: #106CC8;
+    text-decoration: none;
+    font-weight: 400;
+    border-bottom: 1px solid rgba(64, 84, 178, 0.25);
+    -webkit-transition: border-bottom 0.35s;
+    -moz-transition: border-bottom 0.35s;
+    -ms-transition: border-bottom 0.35s;
+    -o-transition: border-bottom 0.35s;
+    transition: border-bottom 0.35s;
+    cursor: pointer;
+}
+
+.box-border {
+	border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    box-sizing: border-box;
+}
+
+.progress-circular {
+	position: absolute;
+	transform: translate(350px, 50%);
+	z-index: 10;
+}
+
+.hidding-box {
+	position: absolute;
+	width: 798px;
+	height: 100%;
+	background-color: rgba(120, 120, 120, 0.3);
+	z-index: 9;
+}
+
+.badAuth {
+	color: rgb(244, 67, 54);
+	font-size: 12px;
+    line-height: 14px;
+    overflow: hidden;
+    padding: 5px 0px;
+}

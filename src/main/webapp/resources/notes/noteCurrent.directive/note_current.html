@@ -1,0 +1,57 @@
+<div ng-controller="note_current.ctrl">
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-raised" aria-label="Learn More" ng-click="newNote()">
+				New Note
+			</md-button>
+			
+			<span flex></span>
+			<md-button class="md-icon-button" aria-label="Get Details" ng-click="getInfo($event, currentNote)">
+				<md-icon md-svg-icon="notes:info"></md-icon>
+			</md-button>
+			
+			<md-menu>
+				<md-button class="md-icon-button" aria-label="More" ng-click="openMenu($mdOpenMenu, $event)">
+					<md-icon md-svg-icon="notes:settings"></md-icon>
+				</md-button>
+				<md-menu-content width="3">
+					<md-menu-item>
+						<md-button ng-click="logout($event)" id="detailBtn">
+							<md-icon md-svg-icon="notes:logout" md-menu-align-target></md-icon>
+							Logout
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+	</md-toolbar>
+	
+	<md-content class="file-content box-border" style="height: 100%;">
+					
+		<md-subheader class="md-primary">Curent Note</md-subheader>
+		
+		<form class="openNote" name=""openNote"">
+		
+			<md-input-container class="md-block">
+			<label>Note Title</label>
+				<input required name="title" ng-model="currentNote.title">
+					<div ng-messages="currentNote.title.$error">
+						<div ng-message="required">This is required.</div>
+					</div>
+			</md-input-container>
+				
+			<md-input-container class="md-block">
+				<label>Content</label>
+				<textarea ng-model="currentNote.content" columns="1" md-maxlength="350" rows="5"></textarea>
+			</md-input-container>
+			
+			<md-button ng-disabled="!currentNote.title.length" class="md-raised md-primary" ng-click="updateSaveNote($event, currentNote)">Save</md-button>
+	   		<md-button ng-disabled="!currentNote.noteId && currentNote.noteId != 0" class="md-raised md-warn" 
+	   			ng-click="deleteNote($event, currentNote)" id="deleteBtn">Delete</md-button>
+			
+		</form>
+		
+	</md-content>
+
+</div>

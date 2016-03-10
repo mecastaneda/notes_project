@@ -1,0 +1,19 @@
+<md-content style="height: 100%;" ng-controller="note_list.ctrl">
+				
+	<md-list>
+			<md-subheader style="margin: 0" sticky-state="active">
+ 					<h2 class="list-title">Notes</h2>
+		</md-subheader>
+		
+		<div class="file-list" ng-repeat="item in notes" >
+			<md-divider></md-divider>
+			<md-list-item class="md-2-line single-file " ng-click="viewNote($event, item)">
+				<div class="md-list-item-text compact" layout="column">
+					<h3 class="note-title" ng-bind="item.title"></h3>
+					<p class="note-content">{{ item.content }}</p>
+				</div>
+			</md-list-item>				
+		</div>
+	</md-list>
+	
+</md-content>
